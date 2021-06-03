@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform target;
 
+    public float Y = 0;
+
     Vector3 MemoryPosition;
 
     private void Update()
@@ -24,8 +26,10 @@ public class CameraController : MonoBehaviour
                     return;
             }
             Vector3 position = target.position;
+            position.y = Y;
             position.z = -10.0F;
-            position.y += 4.5F;
+
+
             transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
             MemoryPosition = target.position;
         }

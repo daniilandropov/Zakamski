@@ -8,6 +8,7 @@ public class Hero : MonoBehaviour
     private new Rigidbody2D rigidbody;
     private Animator animator;
     private SpriteRenderer sprite;
+    public GameObject Foots;
     public bool isGrounded = false;
 
     public float speed = 5.0F;
@@ -43,9 +44,9 @@ public class Hero : MonoBehaviour
 
     private void CheckGround()
     {
-        var coliders = Physics2D.OverlapCircleAll(transform.position, groundSize).Where(x => x.isTrigger == false);
+        var coliders = Physics2D.OverlapCircleAll(Foots.transform.position, groundSize).Where(x => x.isTrigger == false);
 
-        isGrounded = coliders.Count() > 1;
+        isGrounded = coliders.Count() > 2;
 
         if (!isGrounded) State = CharState.Jump;
     }

@@ -59,11 +59,11 @@
     <Compile Include="Assets\HasWidth.cs" />
     <Compile Include="Assets\Ground.cs" />
     <Compile Include="Assets\Hero.cs" />
+    <Compile Include="Assets\GUI.cs" />
+    <Compile Include="Assets\Kvas.cs" />
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Floor.cs" />
     <Compile Include="Assets\LevelManager.cs" />
-    <Compile Include="Assets\GUI.cs" />
-    <Compile Include="Assets\Kvas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

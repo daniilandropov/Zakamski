@@ -162,6 +162,7 @@ MonoBehaviour:
   - {fileID: 6823711083599069085, guid: 7c3a2aaae872cd44aa2a12f440c47434, type: 3}
   - {fileID: 6823711083599069085, guid: edd406ec571683849935ae1c52ae9203, type: 3}
   - {fileID: 6823711083599069085, guid: a82eb02b7e10a11408ea88271a6d0dd0, type: 3}
+  StopWall: {fileID: 1476344009191532795, guid: 84c2cb813cf0e2e49917fe8a521e6036, type: 3}
   KvasCount: 0
   FloorCount: 50
 --- !u!4 &504162005
@@ -217,8 +218,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb50be98f3a11704aa433f491fe77938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0.9
+  speed: 5
   target: {fileID: 0}
+  Y: 6.8
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0

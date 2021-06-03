@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public Floor ThisFloor;
     public Hero ThisHero;
     public List<Home> Homes;
+    public GameObject StopWall;
 
     public int KvasCount = 0;
 
@@ -51,6 +52,9 @@ public class LevelManager : MonoBehaviour
             lastIndex = index;
 
             currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth/2, currentHomePosition.y, currentHomePosition.z);
+
+            if (i == 1)
+                Instantiate(StopWall, currentHomePosition, Quaternion.identity);
 
             if (i == 2)
                 startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y, currentHomePosition.z);
