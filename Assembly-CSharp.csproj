@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{AC0A9A62-FC58-3B40-F827-16AFA8A35BBB}</ProjectGuid>
+    <ProjectGuid>{AF221518-05A1-CD55-7073-75E7F9597379}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -55,13 +55,15 @@
     <Analyzer Include="C:\Program Files (x86)\Microsoft Visual Studio Tools for Unity\16.0\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Home.cs" />
+    <Compile Include="Assets\HasWidth.cs" />
     <Compile Include="Assets\Ground.cs" />
     <Compile Include="Assets\Hero.cs" />
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Floor.cs" />
     <Compile Include="Assets\LevelManager.cs" />
-    <Compile Include="Assets\Home.cs" />
-    <Compile Include="Assets\HasWidth.cs" />
+    <Compile Include="Assets\GUI.cs" />
+    <Compile Include="Assets\Kvas.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

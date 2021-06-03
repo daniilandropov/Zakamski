@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Hero : MonoBehaviour
@@ -14,6 +15,13 @@ public class Hero : MonoBehaviour
     public float jumpForce = 15.0F;
 
     public float groundSize = 2.20f;
+
+    private LevelManager _levelManager;
+
+    public void SetLM(LevelManager lm)
+    {
+        _levelManager = lm;
+    }
 
     public CharState State
     {
@@ -35,9 +43,9 @@ public class Hero : MonoBehaviour
 
     private void CheckGround()
     {
-        Collider2D[] coliders = Physics2D.OverlapCircleAll(transform.position, groundSize);
+        var coliders = Physics2D.OverlapCircleAll(transform.position, groundSize).Where(x => x.isTrigger == false);
 
-        isGrounded = coliders.Length > 1;
+        isGrounded = coliders.Count() > 1;
 
         if (!isGrounded) State = CharState.Jump;
     }
@@ -54,6 +62,7 @@ public class Hero : MonoBehaviour
         if (isGrounded) State = CharState.Walk;
 
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
+
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
 
         sprite.flipX = direction.x < 0.0F;

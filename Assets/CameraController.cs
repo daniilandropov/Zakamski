@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraController : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 2.0F;
+    private float speed = 46.2F;
 
     [SerializeField]
     private Transform target;
@@ -24,8 +24,8 @@ public class CameraController : MonoBehaviour
                     return;
             }
             Vector3 position = target.position;
-            position.z = -5.0F;
-            position.y += 2.5F;
+            position.z = -10.0F;
+            position.y += 4.5F;
             transform.position = Vector3.Lerp(transform.position, position, speed * Time.deltaTime);
             MemoryPosition = target.position;
         }

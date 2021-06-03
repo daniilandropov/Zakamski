@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public GUI ThisGUI;
     public Floor ThisFloor;
     public Hero ThisHero;
     public List<Home> Homes;
+
+    public int KvasCount = 0;
 
     public int FloorCount = 51;
 
@@ -16,17 +19,16 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Instantiate(ThisGUI);
         var floorWidth = ThisFloor.GetWitdth();
 
-        var currentFloorPosition = new Vector3(0, 0, 0);
+        var currentFloorPosition = new Vector3(0, (-ThisFloor.GetHeight()*0.5f) +0.5f, 0);
 
         for(var i = 0; i < FloorCount; i++)
         {
             Instantiate(ThisFloor, currentFloorPosition, Quaternion.identity);
             currentFloorPosition = new Vector3(currentFloorPosition.x + floorWidth, currentFloorPosition.y, currentFloorPosition.z);
         }
-
-        Instantiate(ThisHero, new Vector3(0, 0, 0), Quaternion.identity);
 
         _homeCount = FloorCount / 2;
 
@@ -38,6 +40,8 @@ public class LevelManager : MonoBehaviour
 
         float lastHomeWidth = 1f;
 
+        var startHeroPos = new Vector3();
+
         for (var i = 0; i < _homeCount; i++)
         {
             int index = 0;
@@ -48,17 +52,24 @@ public class LevelManager : MonoBehaviour
 
             currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth/2, currentHomePosition.y, currentHomePosition.z);
 
+            if (i == 2)
+                startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y, currentHomePosition.z);
+
             var home = Instantiate(Homes[index], currentHomePosition, Quaternion.identity);
 
             lastHomeWidth = home.GetWitdth();
 
             currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth/ 2, currentHomePosition.y, currentHomePosition.z);
         }
+
+        var hero = ThisHero;
+        hero.SetLM(this);
+        Instantiate(hero, startHeroPos, Quaternion.identity);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddKvas()
     {
-        
+        KvasCount++;
+        ThisGUI.SetKvas(KvasCount);
     }
 }

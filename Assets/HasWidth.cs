@@ -8,4 +8,10 @@ public class HasWidth : MonoBehaviour
         _boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
         return _boxCollider2D.size.x;
     }
+
+    public float GetHeight()
+    {
+        _boxCollider2D = gameObject.GetComponent<BoxCollider2D>();
+        return _boxCollider2D.size.y;
+    }
 }
