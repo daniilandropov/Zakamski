@@ -11,6 +11,8 @@ public class LevelManager : MonoBehaviour
     public List<Home> Homes;
     public GameObject StopWall;
 
+    private GUI _instGUI;
+
     public int KvasCount = 0;
 
     public int FloorCount = 51;
@@ -20,7 +22,7 @@ public class LevelManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Instantiate(ThisGUI);
+        _instGUI = Instantiate(ThisGUI);
         var floorWidth = ThisFloor.GetWitdth();
 
         var currentFloorPosition = new Vector3(0, (-ThisFloor.GetHeight()*0.5f) +0.5f, 0);
@@ -66,14 +68,26 @@ public class LevelManager : MonoBehaviour
             currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth/ 2, currentHomePosition.y, currentHomePosition.z);
         }
 
-        var hero = ThisHero;
+        var hero = Instantiate(ThisHero, startHeroPos, Quaternion.identity); ;
         hero.SetLM(this);
-        Instantiate(hero, startHeroPos, Quaternion.identity);
     }
 
     public void AddKvas()
     {
         KvasCount++;
-        ThisGUI.SetKvas(KvasCount);
+        _instGUI.SetKvas(KvasCount);
+    }
+
+    public bool MinusKvas()
+    {
+        if(KvasCount > 0)
+        {
+            KvasCount--;
+            _instGUI.SetKvas(KvasCount);
+            return true;
+        }
+
+        return false;
+       
     }
 }

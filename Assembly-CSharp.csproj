@@ -64,6 +64,7 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Floor.cs" />
     <Compile Include="Assets\LevelManager.cs" />
+    <Compile Include="Assets\SpawnPoint.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
