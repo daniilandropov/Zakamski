@@ -23,6 +23,14 @@ public class Hero : MonoBehaviour
 
     private LevelManager _levelManager;
 
+    public bool GetKeyPressed = false;
+    public bool KickKeyPressed = false;
+
+    public bool Invulnerability = false; // неуязвимость во время получения удара
+
+    public float InvulnerabilityTime = 1.0F;
+    public float InvulnerabilityTimer = 0.0f;
+
     public void SetLM(LevelManager lm)
     {
         _levelManager = lm;
@@ -57,8 +65,6 @@ public class Hero : MonoBehaviour
         if (!isGrounded) State = CharState.Jump;
     }
 
-    public bool GetKeyPressed = false;
-    public bool KickKeyPressed = false;
     void Update()
     {
         if (isGrounded) State = CharState.Idle;
@@ -73,11 +79,21 @@ public class Hero : MonoBehaviour
         {
             ShootTimer -= Time.deltaTime;
         }
+
+        if (Invulnerability && InvulnerabilityTimer > 0)
+        {
+            InvulnerabilityTimer -= Time.deltaTime;
+        }
+        else
+        {
+            InvulnerabilityTimer = InvulnerabilityTime;
+            Invulnerability = false;
+        }
     }
 
     private void Attack()
     {
-        if (!_levelManager.MinusKvas())
+        if (!_levelManager.MinusKvas() || Invulnerability)
             return;
 
         Vector3 position = transform.position;
@@ -120,9 +136,19 @@ public class Hero : MonoBehaviour
 
             if (KickKeyPressed)
                 kvas.Kick(transform.right * (sprite.flipX ? -1.0F : 1.0F), 2f, 0.7f);
-            
+
         }
-            
+
+        if (!Invulnerability)
+        {
+            var enemy = collision.gameObject.GetComponent<Enemy>();
+
+            if (enemy && enemy is Enemy)
+            {
+                Invulnerability = true;
+                rigidbody.AddForce(transform.up * jumpForce / 3 + transform.right * (sprite.flipX ? 1.0F : -1.0F), ForceMode2D.Impulse);
+            }
+        }
     }
 }
 

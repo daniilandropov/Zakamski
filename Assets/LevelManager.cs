@@ -59,7 +59,7 @@ public class LevelManager : MonoBehaviour
                 Instantiate(StopWall, currentHomePosition, Quaternion.identity);
 
             if (i == 2)
-                startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y, currentHomePosition.z);
+                startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y+15f, currentHomePosition.z);
 
             var home = Instantiate(Homes[index], currentHomePosition, Quaternion.identity);
 

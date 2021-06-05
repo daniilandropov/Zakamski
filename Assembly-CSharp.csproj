@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Assets\Home.cs" />
     <Compile Include="Assets\HasWidth.cs" />
+    <Compile Include="Assets\SpawnPoint.cs" />
     <Compile Include="Assets\Ground.cs" />
     <Compile Include="Assets\Hero.cs" />
     <Compile Include="Assets\GUI.cs" />
@@ -64,7 +65,8 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Floor.cs" />
     <Compile Include="Assets\LevelManager.cs" />
-    <Compile Include="Assets\SpawnPoint.cs" />
+    <Compile Include="Assets\Petukh.cs" />
+    <Compile Include="Assets\Enemy.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

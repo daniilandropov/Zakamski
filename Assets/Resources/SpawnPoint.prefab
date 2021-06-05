@@ -44,3 +44,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisKvas: {fileID: 1522710155404727591, guid: 1872122df9a4f3b43bdf19bc97c34456, type: 3}
+  ThisPetukh: {fileID: 951693553734233980, guid: dd6eb43340cb6a74db50a6d7a8d0843a, type: 3}
