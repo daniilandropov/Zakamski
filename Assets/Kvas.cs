@@ -30,13 +30,6 @@ public class Kvas : MonoBehaviour
         rigidbody.AddForce(v, ForceMode2D.Impulse);
     }
 
-    private void Update()
-    {
-        var speed = GetSpeed();
-        if(speed > 10)
-            Debug.Log(speed);
-    }
-
     public float GetSpeed()
     {
         return rigidbody.velocity.magnitude;

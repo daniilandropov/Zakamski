@@ -90,4 +90,12 @@ public class LevelManager : MonoBehaviour
         return false;
        
     }
+
+    public int Damage()
+    {
+        var ret = KvasCount;
+        KvasCount = 0;
+        _instGUI.SetKvas(KvasCount);
+        return ret;
+    }
 }

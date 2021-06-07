@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Hero : MonoBehaviour
 {
@@ -71,6 +72,7 @@ public class Hero : MonoBehaviour
         if (Input.GetButton("Horizontal")) Run();
         if (isGrounded && Input.GetKeyDown(KeyCode.Space)) Jump();
         if (ShootTimer <= 0 && Input.GetKeyDown(KeyCode.Q)) Attack();
+        if (ShootTimer <= 0 && Input.GetKeyDown(KeyCode.C)) DropKvas();
 
         if (Input.GetKey(KeyCode.E)) GetKeyPressed = true; else GetKeyPressed = false;
         if (Input.GetKey(KeyCode.V)) KickKeyPressed = true; else KickKeyPressed = false;
@@ -108,6 +110,19 @@ public class Hero : MonoBehaviour
         ShootTimer = ShootSpeed;
     }
 
+    private void DropKvas()
+    {
+        if (!_levelManager.MinusKvas() || Invulnerability)
+            return;
+
+        Vector3 position = transform.position;
+        position.y += 0.5F;
+
+        position.x += sprite.flipX ? -2f : 2F;
+
+        var kvasBullet = Instantiate(_kvas, position, Quaternion.identity);
+    }
+
     private void Run()
     {
         if (isGrounded) State = CharState.Walk;
@@ -135,7 +150,7 @@ public class Hero : MonoBehaviour
                     _levelManager.AddKvas();
 
             if (KickKeyPressed)
-                kvas.Kick(transform.right * (sprite.flipX ? -1.0F : 1.0F), 2f, 0.7f);
+                kvas.Kick(transform.right * (sprite.flipX ? -1.0F : 1.0F), 1.2f, 0.7f);
 
         }
 
@@ -146,7 +161,28 @@ public class Hero : MonoBehaviour
             if (enemy && enemy is Enemy)
             {
                 Invulnerability = true;
-                rigidbody.AddForce(transform.up * jumpForce / 3 + transform.right * (sprite.flipX ? 1.0F : -1.0F), ForceMode2D.Impulse);
+                rigidbody.AddForce(transform.up * jumpForce + transform.right * (sprite.flipX ? 1.0F : -1.0F), ForceMode2D.Impulse);
+
+                var countOfKvas = _levelManager.Damage();
+
+                if (countOfKvas <= 0)
+                    SceneManager.LoadScene("SampleScene");
+                else
+                {
+                    for(int i = 0; i < countOfKvas; i++)
+                    {
+                        Vector3 position = transform.position;
+                        position.y += 0.5F;
+
+                        position.x += sprite.flipX ? 2f : -2F;
+
+                        var kvasBullet = Instantiate(_kvas, position, Quaternion.identity);
+
+                        kvasBullet.Kick(kvasBullet.transform.right * (sprite.flipX ? 1.0F : -1.0F), 15f, 0.2f);
+                    }
+                    
+
+                }
             }
         }
     }

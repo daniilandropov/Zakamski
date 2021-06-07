@@ -65,8 +65,8 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\Floor.cs" />
     <Compile Include="Assets\LevelManager.cs" />
-    <Compile Include="Assets\Petukh.cs" />
     <Compile Include="Assets\Enemy.cs" />
+    <Compile Include="Assets\Skot.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

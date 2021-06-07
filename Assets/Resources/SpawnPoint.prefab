@@ -44,4 +44,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisKvas: {fileID: 1522710155404727591, guid: 1872122df9a4f3b43bdf19bc97c34456, type: 3}
-  ThisPetukh: {fileID: 951693553734233980, guid: dd6eb43340cb6a74db50a6d7a8d0843a, type: 3}
+  Petukh: {fileID: 1707245991194201349, guid: dd6eb43340cb6a74db50a6d7a8d0843a, type: 3}
+  Khryak: {fileID: 2679232389459961077, guid: e80e1e263218c6f459fa3bb65d258136, type: 3}
+  Porosenok: {fileID: 2679232389459961077, guid: 4753384ac3311954fb07adcfcc6edfcb, type: 3}
+  Kozel: {fileID: 2679232389459961077, guid: 33366434bd506b74584a4aca3b3d08b3, type: 3}
+  Baran: {fileID: 2679232389459961077, guid: 0fb178355b1b27f4d9c7b17256146dd3, type: 3}
