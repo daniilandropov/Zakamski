@@ -11,6 +11,7 @@ public class SpawnPoint : MonoBehaviour
     public Skot Porosenok;
     public Skot Kozel;
     public Skot Baran;
+    public Golub ThisGolub;
 
     private static System.Random random = new System.Random(DateTime.Now.ToString().GetHashCode());
     void Start()
@@ -18,7 +19,7 @@ public class SpawnPoint : MonoBehaviour
         
         int value = random.Next(0, 1000);
 
-        if(this.transform.position.y > 4)
+        if(this.transform.position.y >= 4 && this.transform.position.y <= 10)
         {
             if (value <= 150)
                 Instantiate(ThisKvas, this.transform.position, Quaternion.identity);
@@ -31,7 +32,7 @@ public class SpawnPoint : MonoBehaviour
             else if (value > 650 && value <= 700)
                 Instantiate(Baran, this.transform.position, Quaternion.identity);
         }
-        else
+        else if(this.transform.position.y < 4)
         {
             if (value <= 100)
                 Instantiate(ThisKvas, this.transform.position, Quaternion.identity);
@@ -45,6 +46,10 @@ public class SpawnPoint : MonoBehaviour
                 Instantiate(Kozel, this.transform.position, Quaternion.identity);
             else if (value > 700 && value <= 800)
                 Instantiate(Baran, this.transform.position, Quaternion.identity);
+        }else if(this.transform.position.y > 10)
+        {
+            if (value <= 250)
+                Instantiate(ThisGolub, this.transform.position, Quaternion.identity);
         }
 
         

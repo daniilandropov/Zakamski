@@ -153,7 +153,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ThisGUI: {fileID: 1185957708884547440, guid: e1916bf31aac7f740bc0036e1fd36b73, type: 3}
-  ThisFloor: {fileID: 5506951436306491518, guid: f513d1492c6d9414ba1d333f81e1ebc1, type: 3}
+  ThisFloorDerevnya: {fileID: 5506951436306491518, guid: f513d1492c6d9414ba1d333f81e1ebc1, type: 3}
+  ThisFloorLes: {fileID: 5506951436306491518, guid: f513d1492c6d9414ba1d333f81e1ebc1, type: 3}
   ThisHero: {fileID: 3096591951407126862, guid: 217937f8a5a005e49988183b571ad284, type: 3}
   Homes:
   - {fileID: 6823711083599069085, guid: f160c6097a567ae47ab2204cff0cc11d, type: 3}
@@ -162,9 +163,21 @@ MonoBehaviour:
   - {fileID: 6823711083599069085, guid: 7c3a2aaae872cd44aa2a12f440c47434, type: 3}
   - {fileID: 6823711083599069085, guid: edd406ec571683849935ae1c52ae9203, type: 3}
   - {fileID: 6823711083599069085, guid: a82eb02b7e10a11408ea88271a6d0dd0, type: 3}
+  Trees:
+  - {fileID: 2601066279779795612, guid: e389e6e9675fa294e919abceb5281811, type: 3}
+  - {fileID: 2601066279779795612, guid: 104031d9223fd174081177fe17784f62, type: 3}
+  - {fileID: 2601066279779795612, guid: 23b6a01c0ae81f64891a81053c935844, type: 3}
+  - {fileID: 2601066279779795612, guid: 222ea37c1dafd2e43847d5f6f23a8c8f, type: 3}
+  - {fileID: 2601066279779795612, guid: 9268c937c2bc10146a16396a53f13645, type: 3}
+  - {fileID: 2601066279779795612, guid: 635f24deec956bf4188e63b8208d08a1, type: 3}
+  - {fileID: 2601066279779795612, guid: 79eeddfc532adbd4bb368dd04d3d0755, type: 3}
+  - {fileID: 2601066279779795612, guid: 6c3c5fe8176d83c40b508cd0ce2997d6, type: 3}
+  - {fileID: 2601066279779795612, guid: 6fe665e4b66bc0544b266fde0dc4a495, type: 3}
+  - {fileID: 2601066279779795612, guid: e70392b8a7c541844bcdb56bf8a1aace, type: 3}
   StopWall: {fileID: 1476344009191532795, guid: 84c2cb813cf0e2e49917fe8a521e6036, type: 3}
   KvasCount: 0
-  FloorCount: 50
+  FloorCountDerevnya: 51
+  FloorCountLes: 51
 --- !u!4 &504162005
 Transform:
   m_ObjectHideFlags: 0

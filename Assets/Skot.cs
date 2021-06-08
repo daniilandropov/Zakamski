@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class Skot : Enemy
 {
-    private static System.Random random = new System.Random(DateTime.Now.ToString().GetHashCode());
 
     void Update()
     {
@@ -39,5 +38,10 @@ public class Skot : Enemy
         }
 
         transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, _speed * Time.deltaTime);
+    }
+
+    protected void FixedUpdate()
+    {
+        CheckGround();
     }
 }

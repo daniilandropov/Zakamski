@@ -160,30 +160,35 @@ public class Hero : MonoBehaviour
 
             if (enemy && enemy is Enemy)
             {
-                Invulnerability = true;
-                rigidbody.AddForce(transform.up * jumpForce + transform.right * (sprite.flipX ? 1.0F : -1.0F), ForceMode2D.Impulse);
-
-                var countOfKvas = _levelManager.Damage();
-
-                if (countOfKvas <= 0)
-                    SceneManager.LoadScene("SampleScene");
-                else
-                {
-                    for(int i = 0; i < countOfKvas; i++)
-                    {
-                        Vector3 position = transform.position;
-                        position.y += 0.5F;
-
-                        position.x += sprite.flipX ? 2f : -2F;
-
-                        var kvasBullet = Instantiate(_kvas, position, Quaternion.identity);
-
-                        kvasBullet.Kick(kvasBullet.transform.right * (sprite.flipX ? 1.0F : -1.0F), 15f, 0.2f);
-                    }
-                    
-
-                }
+                ReciveDamage();
             }
+        }
+    }
+
+    public void ReciveDamage()
+    {
+        Invulnerability = true;
+        rigidbody.AddForce(transform.up * jumpForce + transform.right * (sprite.flipX ? 1.0F : -1.0F), ForceMode2D.Impulse);
+
+        var countOfKvas = _levelManager.Damage();
+
+        if (countOfKvas <= 0)
+            SceneManager.LoadScene("SampleScene");
+        else
+        {
+            for (int i = 0; i < countOfKvas; i++)
+            {
+                Vector3 position = transform.position;
+                position.y += 0.5F;
+
+                position.x += sprite.flipX ? 2f : -2F;
+
+                var kvasBullet = Instantiate(_kvas, position, Quaternion.identity);
+
+                kvasBullet.Kick(kvasBullet.transform.right * (sprite.flipX ? 1.0F : -1.0F), 15f, 0.2f);
+            }
+
+
         }
     }
 }
