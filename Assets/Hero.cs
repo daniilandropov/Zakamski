@@ -17,6 +17,9 @@ public class Hero : MonoBehaviour
     public float ShootTimer = 0.0f;
 
     public float speed = 5.0F;
+    public float shiftSpeed = 8.0F;
+
+    public float _currentSpeed = 5.0f;
 
     public float jumpForce = 15.0F;
 
@@ -77,6 +80,9 @@ public class Hero : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) GetKeyPressed = true; else GetKeyPressed = false;
         if (Input.GetKey(KeyCode.V)) KickKeyPressed = true; else KickKeyPressed = false;
 
+        if (Input.GetKeyDown(KeyCode.LeftShift)) _currentSpeed = shiftSpeed;
+        if (Input.GetKeyUp(KeyCode.LeftShift)) _currentSpeed = speed;
+
         if (ShootTimer > 0)
         {
             ShootTimer -= Time.deltaTime;
@@ -129,7 +135,7 @@ public class Hero : MonoBehaviour
 
         Vector3 direction = transform.right * Input.GetAxis("Horizontal");
 
-        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, transform.position + direction, _currentSpeed * Time.deltaTime);
 
         sprite.flipX = direction.x < 0.0F;
     }

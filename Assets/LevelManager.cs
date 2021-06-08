@@ -25,6 +25,21 @@ public class LevelManager : MonoBehaviour
     private int _homeCount = 0;
     private int _treeCount = 0;
 
+    private static System.Random random;
+    private static object syncObj = new object();
+    private static void InitRandomNumber(int seed)
+    {
+        random = new System.Random(seed);
+    }
+    private static int GenerateRandomNumber(int max)
+    {
+        lock (syncObj)
+        {
+            if (random == null)
+                random = new System.Random();
+            return random.Next(max);
+        }
+    }
 
     void Start()
     {
@@ -48,21 +63,16 @@ public class LevelManager : MonoBehaviour
 
         var currentHomePosition = new Vector3(floorDerevnyaWidth, 4.5f, 0);
 
-        var lastIndex = 0;
-
         float lastHomeWidth = 1f;
 
         var startHeroPos = new Vector3();
 
+        var homes = new Dictionary<int, int>();
+
+        InitRandomNumber(DateTime.Now.ToString().GetHashCode());
+
         for (var i = 0; i < _homeCount; i++)
         {
-            int index = 0;
-            while (lastIndex == index)
-                index = new System.Random(DateTime.Now.ToString().GetHashCode()).Next(0, Homes.Count);
-                
-
-            lastIndex = index;
-
             currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth / 2, currentHomePosition.y, currentHomePosition.z);
 
             if (i == 1)
@@ -72,7 +82,7 @@ public class LevelManager : MonoBehaviour
                 startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y + 15f, currentHomePosition.z);
 
 
-            var home = Instantiate(Homes[index], currentHomePosition, Quaternion.identity);
+            var home = Instantiate(Homes[GenerateRandomNumber(Homes.Count)], currentHomePosition, Quaternion.identity);
 
             lastHomeWidth = home.GetWitdth();
 
@@ -99,19 +109,11 @@ public class LevelManager : MonoBehaviour
 
         _treeCount = FloorCountLes * 2;
 
-        var currentTreePosition = new Vector3(currentHomePosition.x, 6f, 0); // Деревья спаунятся на месте последнего дома
-
-        lastIndex = 0;
+        var currentTreePosition = new Vector3(currentHomePosition.x, 5f, 0); // Деревья спаунятся на месте последнего дома
 
         for (var i = 0; i < _treeCount; i++)
         {
-            int index = 0;
-            while (lastIndex == index)
-                index = UnityEngine.Random.Range(0, Trees.Count*1000);
-
-            lastIndex = index;
-
-            var tree = Instantiate(Trees[index/1000], currentTreePosition, Quaternion.identity);
+            var tree = Instantiate(Trees[GenerateRandomNumber(Trees.Count)], currentTreePosition, Quaternion.identity);
 
             currentTreePosition = new Vector3(currentTreePosition.x + 5f, currentTreePosition.y, currentTreePosition.z);
         }

@@ -172,9 +172,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Foots: {fileID: 6623298991720002222}
   isGrounded: 0
+  ShootSpeed: 1
+  ShootTimer: 0
   speed: 7
+  shiftSpeed: 12
+  _currentSpeed: 5
   jumpForce: 25
   groundSize: 0.3
+  GetKeyPressed: 0
+  KickKeyPressed: 0
+  Invulnerability: 0
+  InvulnerabilityTime: 1
+  InvulnerabilityTimer: 0
 --- !u!61 &8717871927396931489
 BoxCollider2D:
   m_ObjectHideFlags: 0
