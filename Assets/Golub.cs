@@ -3,6 +3,7 @@
 public class Golub : Enemy
 {
     public GolubSnaryad Snaryad;
+
     void Update()
     {
         int value = random.Next(0, 1000);

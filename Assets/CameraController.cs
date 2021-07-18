@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
     [SerializeField]
     private Transform target;
 
+    public bool FixY = true;
+
     public float Y = 0;
 
     Vector3 MemoryPosition;
@@ -26,7 +28,7 @@ public class CameraController : MonoBehaviour
                     return;
             }
             Vector3 position = target.position;
-            position.y = Y;
+            if(FixY) position.y = Y;
             position.z = -10.0F;
 
 

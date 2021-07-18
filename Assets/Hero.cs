@@ -25,7 +25,10 @@ public class Hero : MonoBehaviour
 
     public float groundSize = 2.20f;
 
-    private LevelManager _levelManager;
+    private LevelManager _levelManager
+    {
+        get => GlobalVals.lm;
+    }
 
     public bool GetKeyPressed = false;
     public bool KickKeyPressed = false;
@@ -34,11 +37,6 @@ public class Hero : MonoBehaviour
 
     public float InvulnerabilityTime = 1.0F;
     public float InvulnerabilityTimer = 0.0f;
-
-    public void SetLM(LevelManager lm)
-    {
-        _levelManager = lm;
-    }
 
     public CharState State
     {
@@ -179,7 +177,7 @@ public class Hero : MonoBehaviour
         var countOfKvas = _levelManager.Damage();
 
         if (countOfKvas <= 0)
-            SceneManager.LoadScene("SampleScene");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         else
         {
             for (int i = 0; i < countOfKvas; i++)
@@ -193,8 +191,6 @@ public class Hero : MonoBehaviour
 
                 kvasBullet.Kick(kvasBullet.transform.right * (sprite.flipX ? 1.0F : -1.0F), 15f, 0.2f);
             }
-
-
         }
     }
 }

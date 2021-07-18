@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class LevelManager : MonoBehaviour
 
     private static System.Random random;
     private static object syncObj = new object();
+
+    private Vector3 startHeroPos;
+
     private static void InitRandomNumber(int seed)
     {
         random = new System.Random(seed);
@@ -45,86 +49,95 @@ public class LevelManager : MonoBehaviour
     {
         _instGUI = Instantiate(ThisGUI);
 
-        #region Земля деревня
-        var floorDerevnyaWidth = ThisFloorDerevnya.GetWitdth();
-
-        var currentFloorDerevnyaPosition = new Vector3(0, (-ThisFloorDerevnya.GetHeight() * 0.5f) + 0.5f, 0);
-
-        for (var i = 0; i < FloorCountDerevnya; i++)
+        if(SceneManager.GetActiveScene().name == "Level1")
         {
-            Instantiate(ThisFloorDerevnya, currentFloorDerevnyaPosition, Quaternion.identity);
-            currentFloorDerevnyaPosition = new Vector3(currentFloorDerevnyaPosition.x + floorDerevnyaWidth, currentFloorDerevnyaPosition.y, currentFloorDerevnyaPosition.z);
+            #region Земля деревня
+            var floorDerevnyaWidth = ThisFloorDerevnya.GetWitdth();
+
+            var currentFloorDerevnyaPosition = new Vector3(0, (-ThisFloorDerevnya.GetHeight() * 0.5f) + 0.5f, 0);
+
+            for (var i = 0; i < FloorCountDerevnya; i++)
+            {
+                Instantiate(ThisFloorDerevnya, currentFloorDerevnyaPosition, Quaternion.identity);
+                currentFloorDerevnyaPosition = new Vector3(currentFloorDerevnyaPosition.x + floorDerevnyaWidth, currentFloorDerevnyaPosition.y, currentFloorDerevnyaPosition.z);
+            }
+            #endregion
+
+            #region Дома
+
+            _homeCount = FloorCountDerevnya / 2;
+
+            var currentHomePosition = new Vector3(floorDerevnyaWidth, 4.5f, 0);
+
+            float lastHomeWidth = 1f;
+
+            var homes = new Dictionary<int, int>();
+
+            InitRandomNumber(DateTime.Now.ToString().GetHashCode());
+
+            for (var i = 0; i < _homeCount; i++)
+            {
+                currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth / 2, currentHomePosition.y, currentHomePosition.z);
+
+                if (i == 1)
+                    Instantiate(StopWall, currentHomePosition, Quaternion.identity);
+
+                if (i == 2)
+                    startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y + 15f, currentHomePosition.z);
+
+
+                var home = Instantiate(Homes[GenerateRandomNumber(Homes.Count)], currentHomePosition, Quaternion.identity);
+
+                lastHomeWidth = home.GetWitdth();
+
+                currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth / 2, currentHomePosition.y, currentHomePosition.z);
+            }
+
+            #endregion
+
+
+            #region Лес земля
+            var floorLesWidth = ThisFloorLes.GetWitdth();
+
+            var currentFloorLesPosition = currentFloorDerevnyaPosition;
+
+            for (var i = 0; i < FloorCountLes; i++)
+            {
+                Instantiate(ThisFloorLes, currentFloorLesPosition, Quaternion.identity);
+                currentFloorLesPosition = new Vector3(currentFloorLesPosition.x + floorLesWidth, currentFloorLesPosition.y, currentFloorLesPosition.z);
+            }
+            #endregion
+
+
+            #region Деревья
+
+            _treeCount = FloorCountLes * 2;
+
+            var currentTreePosition = new Vector3(currentHomePosition.x, 5f, 0); // Деревья спаунятся на месте последнего дома
+
+            for (var i = 0; i < _treeCount; i++)
+            {
+                if (_treeCount - i == 7)
+                {
+                    Instantiate(StopWall, currentTreePosition, Quaternion.identity);
+                }
+
+                if (_treeCount - i == 10)
+                {
+                    Instantiate(Resources.Load<MedvedTaxi>("MedvedTaxi"), currentTreePosition, Quaternion.identity);
+                }
+
+                var tree = Instantiate(Trees[GenerateRandomNumber(Trees.Count)], currentTreePosition, Quaternion.identity);
+
+                currentTreePosition = new Vector3(currentTreePosition.x + 5f, currentTreePosition.y, currentTreePosition.z);
+            }
+
+            #endregion
+
+            var hero = Instantiate(ThisHero, startHeroPos, Quaternion.identity);
         }
-        #endregion
 
-        #region Дома
-
-        _homeCount = FloorCountDerevnya / 2;
-
-        var currentHomePosition = new Vector3(floorDerevnyaWidth, 4.5f, 0);
-
-        float lastHomeWidth = 1f;
-
-        var startHeroPos = new Vector3();
-
-        var homes = new Dictionary<int, int>();
-
-        InitRandomNumber(DateTime.Now.ToString().GetHashCode());
-
-        for (var i = 0; i < _homeCount; i++)
-        {
-            currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth / 2, currentHomePosition.y, currentHomePosition.z);
-
-            if (i == 1)
-                Instantiate(StopWall, currentHomePosition, Quaternion.identity);
-
-            if (i == 2)
-                startHeroPos = new Vector3(currentHomePosition.x, currentHomePosition.y + 15f, currentHomePosition.z);
-
-
-            var home = Instantiate(Homes[GenerateRandomNumber(Homes.Count)], currentHomePosition, Quaternion.identity);
-
-            lastHomeWidth = home.GetWitdth();
-
-            currentHomePosition = new Vector3(currentHomePosition.x + lastHomeWidth / 2, currentHomePosition.y, currentHomePosition.z);
-        }
-
-        #endregion
-
-
-        #region Лес земля
-        var floorLesWidth = ThisFloorLes.GetWitdth();
-
-        var currentFloorLesPosition = currentFloorDerevnyaPosition;
-
-        for (var i = 0; i < FloorCountLes; i++)
-        {
-            Instantiate(ThisFloorLes, currentFloorLesPosition, Quaternion.identity);
-            currentFloorLesPosition = new Vector3(currentFloorLesPosition.x + floorLesWidth, currentFloorLesPosition.y, currentFloorLesPosition.z);
-        }
-        #endregion
-
-
-        #region Деревья
-
-        _treeCount = FloorCountLes * 2;
-
-        var currentTreePosition = new Vector3(currentHomePosition.x, 5f, 0); // Деревья спаунятся на месте последнего дома
-
-        for (var i = 0; i < _treeCount; i++)
-        {
-            var tree = Instantiate(Trees[GenerateRandomNumber(Trees.Count)], currentTreePosition, Quaternion.identity);
-
-            currentTreePosition = new Vector3(currentTreePosition.x + 5f, currentTreePosition.y, currentTreePosition.z);
-        }
-
-        #endregion
-
-
-
-
-        var hero = Instantiate(ThisHero, startHeroPos, Quaternion.identity); ;
-        hero.SetLM(this);
+        GlobalVals.lm = this;
     }
 
     public void AddKvas()
